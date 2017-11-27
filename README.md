@@ -1,4 +1,4 @@
-# dudix tutorials git
+# dudix tutorials
 Tutorials for my son Aaron (and maybe others)
 
 ## Tutorial 1
