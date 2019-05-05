@@ -15,7 +15,6 @@
         for(var a in array) {
            retVal *= array[a];
         }
-        //console.log("multiplyArray(" + array.toString() + "): " + retVal);
         return retVal;
      }
 
@@ -73,10 +72,7 @@
        while(c1<n1Primes.length) {
           var c2 = 0;
           while(c2<n2Primes.length) {
-             //console.log("c1: " +c1 +", c2: " +c2);
-             //console.log("n1Primes["+c1+"]==n2Primes["+c2+"]: " + n1Primes[c1] + "==" + n2Primes[c2]);
              if(n1Primes[c1]==n2Primes[c2]) {
-                //console.log("commonPrimes.push(" + n1Primes[c1] +")");
                 commonPrimes.push(n1Primes[c1]);
                 c1++;
              }
