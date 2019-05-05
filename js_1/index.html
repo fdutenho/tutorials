@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <title>kgV und ggT für Aaron</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <script type="text/javascript">
+     const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]; //we don't need more prime numbers for this example
+
+     function multiplyArray(array) {
+        var retVal = 1;
+        for(var a in array) {
+           retVal *= array[a];
+        }
+        //console.log("multiplyArray(" + array.toString() + "): " + retVal);
+        return retVal;
+     }
+
+     function calc() {
+        console.log("========== start calc");
+
+        //read number 1 and check if they are integers
+        var n1 = Number(document.getElementById("n1").value);
+        if (isNaN(n1) || !Number.isInteger(n1)) {
+           console.log("reset n1");
+           document.getElementById("n1").value = 18;
+           n1 = 18;
+        }
+
+        //read number 1 and check if they are integers
+        var n2 = Number(document.getElementById("n2").value);
+        if (isNaN(n2) || !Number.isInteger(n2)) {
+           console.log("reset n2");
+           document.getElementById("n2").value = 12;
+           n2 = 12;
+        }
+
+        // deconstruct both numbers into the prucuts of it's prime numbers
+        var n1Primes = [];
+        var n2Primes = [];
+        var n1test = n1;
+        var n2test = n2;
+
+        for(var p in primes) {
+           while (Number.isInteger(n1test/primes[p])) {
+             n1Primes.push(primes[p]);
+             n1test = n1test/primes[p];
+          }
+          while (Number.isInteger(n2test/primes[p])) {
+            n2Primes.push(primes[p]);
+            n2test = n2test/primes[p];
+         }
+       }
+
+       if(multiplyArray(n1Primes)!=n1) {
+         console.error("prime deconstruction of "+n1+" failed!");
+         n1Primes.splice(0,n1Primes.length,n1);
+       }
+       if(multiplyArray(n2Primes)!=n2) {
+         console.error("prime deconstruction of "+n2+" failed!");
+         n2Primes.splice(0,n2Primes.length,n2);
+       }
+       console.log("primes of "+n1+": " + n1Primes.toString());
+       console.log("primes of "+n2+": " + n2Primes.toString());
+
+       //extract the common prime numbers
+       var commonPrimes = [];
+
+       var c1 = 0;
+       while(c1<n1Primes.length) {
+          var c2 = 0;
+          while(c2<n2Primes.length) {
+             //console.log("c1: " +c1 +", c2: " +c2);
+             //console.log("n1Primes["+c1+"]==n2Primes["+c2+"]: " + n1Primes[c1] + "==" + n2Primes[c2]);
+             if(n1Primes[c1]==n2Primes[c2]) {
+                //console.log("commonPrimes.push(" + n1Primes[c1] +")");
+                commonPrimes.push(n1Primes[c1]);
+                c1++;
+             }
+             c2++;
+          }
+          c1++;
+       }
+       console.log("common primes of "+n1+" and "+n2+": " + commonPrimes.toString());
+
+       //remove the common primes from the prime array of both numbers
+       for(cp in commonPrimes) {
+          c1 = n1Primes.indexOf(commonPrimes[cp]);
+          if(c1>=0) {
+             n1Primes.splice(c1,1);
+          }
+          c2 = n2Primes.indexOf(commonPrimes[cp]);
+          if(c2>=0) {
+             n2Primes.splice(c2,1);
+          }
+       }
+
+       console.log("remaining primes for "+n1+": " + n1Primes.toString());
+       console.log("remaining primes for "+n2+": " + n2Primes.toString());
+
+
+       //calc ggT and kgV
+       var ggt = multiplyArray(commonPrimes);
+       var kgv = n2 * multiplyArray(n1Primes);
+
+       document.getElementById("ggt").value = ggt;
+       document.getElementById("kgv").value = kgv;
+    }
+
+  </script>
+</head>
+
+<body>
+   <div class="jumbotron">
+     <h1 class="display-4">ggT und kgV</h1>
+   </div>
+   <div class="container">
+      <form>
+         <div class="row alert alert-dark">
+            <h1>Eingabe</h1>
+            <div class="col-12">
+               <div class="form-group row">
+                  <label for="n1" class="col-2 col-form-label">1. Zahl</label>
+                  <div class="col-10">
+                     <input type="text" class="form-control" id="n1" value="18" onchange="calc()">
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="n2" class="col-2 col-form-label">1. Zahl</label>
+                  <div class="col-10">
+                     <input type="text" class="form-control" id="n2" value="12" onchange="calc()">
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="row alert alert-success">
+            <h1>Ausgabe</h1>
+            <div class="col-12">
+               <div class="form-group row">
+                  <label for="ggt" class="col-2 col-form-label">ggt: </label>
+                  <div class="col-10">
+                     <input type="text" class="form-control" id="ggt" value="6" readonly>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <label for="kgv" class="col-2 col-form-label">kgV: </label>
+                  <div class="col-10">
+                     <input type="text" class="form-control" id="kgv" value="36" readonly>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </form>
+   </div>
+
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   <script type="text/javascript">calc();</script>
+</body>
+
+</html>
