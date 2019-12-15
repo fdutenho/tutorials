@@ -58,6 +58,7 @@ see folder [elevator/step5](./elevator/step5/)
 ### Step 6:
 Fine tuning
  * when to close/open a door
+ * a bit more intelligent mainController
  * ...
 
 see folder [elevator/step6](./elevator/step6/)
