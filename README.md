@@ -2,23 +2,25 @@
 Tutorials for my son Aaron (and maybe others)
 
 ## Tutorial 1: simple HTML + CSS
-Tutorial 1 is a simple html file, a css file and a ico.
+<details><summary>Tutorial 1 is a simple html file, a css file and a ico.</summary>
 The example shows how to organize a page with `<div>` tags.
 We use `padding` and `box-sizing: border-box;` within the css to prettify the page.
+</details>
 
 see folder [html_1](./html_1/)
 
 ## Tutorial 2: ggt + kgV
-Tutorial 2 is a plain Js implementation of the GCD ("ggT" in German) and LCM ("kgV" in German).
+<details><summary>Tutorial 2 is a plain Js implementation of the GCD ("ggT" in German) and LCM ("kgV" in German).</summary>
 The exmaple implements the calculation accoring the aglorithm in my son's math book. It's not the best software engineering solution - but that was not the gloal...
+</details>
 
 see folder [js_1](./js_1/)
 
 ## Tutorial 3: Elevator
-An elevator management system in node.js, RectJS and Boostrap 4.
-Each Step is in a separate folder, so you can see the code of the step and run it.
+<details><summary>An elevator management system in node.js, RectJS and Boostrap 4.
+Each Step is in a separate folder, so you can see the code of the step and run it.</summary>
 
-To run it, goto folder and execute
+To run it, go to folder and execute
 
 ```
 npm install
@@ -62,7 +64,7 @@ Fine tuning
  * ...
 
 see folder [elevator/step6](./elevator/step6/)
-
+</details>
 
 ## Tutorial 4
 let see...
