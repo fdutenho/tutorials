@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   <title>Trainer für Quadratische Gleichungen</title>
+
+   <script type="text/javascript">
+      x1 = 1;
+      x2 = 1;
+      counter=0;
+
+      function getRandomInt(min, max) {
+         min = Math.ceil(min);
+         max = Math.floor(max);
+         return Math.floor(Math.random() * (max - min+1)) + min;
+      }
+
+      function test() {
+         expectedResult1 = x1;
+         expectedResult2 = x2;
+         console.log("expectedResult:" + expectedResult1 + " and " + expectedResult2);
+         givenResult1 = document.getElementById('result1').value;
+         givenResult2 = document.getElementById('result2').value;
+         console.log("givenResults:" + givenResult1 + " and " + givenResult2);
+         if ((givenResult1 == expectedResult1 && givenResult2 == expectedResult2) || (givenResult1 == expectedResult2 && givenResult2 == expectedResult1)) {
+            console.log("richtig");
+            document.getElementById('result1').style.backgroundColor = "lightgreen";
+            document.getElementById('result2').style.backgroundColor = "lightgreen";
+         } else {
+            console.log("falsch");
+            document.getElementById('result1').style.backgroundColor = "#f77";
+            document.getElementById('result2').style.backgroundColor = "#f77";
+         }
+      }
+
+      function next() {
+         counter++;
+
+         a = getRandomInt(1,10);
+         console.debug("a: " +a);
+
+         b = 2 * a * getRandomInt(1,10);
+         console.debug("b: " +b);
+
+         ctemp = getRandomInt(1,10);
+         console.debug("ctemp: " +ctemp);
+
+         //cd = (Math.pow(b,2)/4) - Math.pow(ctemp,2);
+         cd = Math.pow(b,2)/(4*a) - Math.pow(ctemp,2)*a;
+         console.debug("cd: " +cd);
+         if(cd==0) {
+            console.error("ALERT (#"+counter+"): c-d=0! at a:"+a+" b:"+b+" ctemp:"+ctemp)
+            b = ((b/(2*a))+1)*2*a;
+            cd = Math.pow(b,2)/(4*a) - Math.pow(ctemp,2)*a;
+            console.warn("updated cd: " +cd + " at a:"+a+" b:"+b+" ctemp:"+ctemp);
+         }
+
+         d = cd + getRandomInt(1,10);
+         console.debug("d: " +d);
+
+         c = cd + d;
+         console.debug("c updated: " +c);
+
+         x1 = -b/(2*a) - ctemp;
+         x2 = -b/(2*a) + ctemp;
+
+
+         if(a==1) {
+            eq = "x² ";
+         } else {
+            eq = a + "x² ";
+         }
+         switch (Math.sign(b)) {
+            case -1: eq = eq + b+"x "; break;
+            case  1: eq = eq + "+"+b+"x "; break;
+            case  0: eq = eq + " "; break;
+         }
+         switch (Math.sign(c)) {
+            case -1: eq = eq + c + " = " +d; break;
+            case  1: eq = eq + "+"+c + " = " +d; break;
+            case  0: eq = eq + "= " +d; break;
+         }
+         console.debug(eq + " ==> x1=" + x1 + "  x2="+x2)
+
+         document.getElementById('equation').value = eq;
+         document.getElementById('result1').style.backgroundColor = "#fff";
+         document.getElementById('result1').value = "";
+         document.getElementById('result2').style.backgroundColor = "#fff";
+         document.getElementById('result2').value = "";
+         document.getElementById('result1').focus();
+      }
+   </script>
+</head>
+
+<body>
+   <div class="jumbotron">
+      <h1 class="display-4">Trainer für gemischtquadratische Gleichungen mit Absolutglied</h1>
+   </div>
+   <div class="container">
+      <form onsubmit="test();return false;">
+         <div class="row pb-4">
+            <div class="col-12">
+               <input type="text" class="form-control" id="equation" value="" size="1" disabled>
+            </div>
+         </div>
+         <div class="row pb-4">
+            <div class="col-1">
+               x1=
+            </div>
+            <div class="col-5">
+               <input type="text" class="form-control" id="result1" value="" size="3" autofocus>
+            </div>
+            <div class="col-1">
+               x2=
+            </div>
+            <div class="col-5">
+               <input type="text" class="form-control" id="result2" value="" size="3">
+            </div>
+         </div>
+         <div class="row pb-4">
+            <div class="col-sm-6 col-12">
+               <button type="submit" class="btn btn-primary form-control" onclick="">überprüfen</button>
+            </div>
+            <div class="col-sm-6 col-12">
+               <button type="button" class="btn btn-secondary form-control" onclick="next()">nächste Aufgabe</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+   <script type="text/javascript">
+      next();
+   </script>
+</body>
+
+</html>

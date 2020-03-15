@@ -67,9 +67,18 @@ see folder [elevator/step6](./elevator/step6/)
 </details>
 
 ## Tutorial 4
-A HTML page with JS displaing two numbers between 0 and 9. The user has to enter the product of both. The JS will test if the result is correct and displays a green or red indicator.
+<details><summary>Tutorial 4 is a plain JS implementation of a 1x1 trainer.</summary>
+A HTML page with JS displaying two numbers between 0 and 9. The user has to enter the product of both. The JS will test if the result is correct and displays a green or red indicator.
+</details>
 
 see folder [1x1](./1x1/)
 
 ## Tutorial 5
+<details><summary>Tutorial 5 is a trainer to solve square equations. Written in JS.</summary>
+A HTML page with JS displaying a square equation of type ax²+bx+c=d. The user has to enter the two solutions for x1 and x2. The JS will test if the result is correct and displays a green or red indicator.
+</details>
+
+see folder [square-eq](./square-eq/)
+
+## Tutorial 6
 let see...
