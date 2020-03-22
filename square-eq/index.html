@@ -37,54 +37,71 @@
       }
 
       function next() {
+         // create a new equation of type ax²+bx+c=d having to interger number as solutions
+
+         // just for statistics
          counter++;
 
+         // a could be a random number, I limit it from 1 to 10 to keep the equation a bit simpler
          a = getRandomInt(1,10);
          console.debug("a: " +a);
 
+         // b could be a random number as well. But, if the solutions are integer numbers, and you have to divide by 2 and by a. I just muliply the ramdom number with a and 2
          b = 2 * a * getRandomInt(1,10);
          console.debug("b: " +b);
 
+         // pq-Formula goes like x = -(p/2) + sqrt( (p/2)² -q ). ctemp respresnts the whole sqrt part. So x1= -(p/2)+ctemp and x2 = -(p/2)-ctemp ()
          ctemp = getRandomInt(1,10);
          console.debug("ctemp: " +ctemp);
 
-         //cd = (Math.pow(b,2)/4) - Math.pow(ctemp,2);
-         cd = Math.pow(b,2)/(4*a) - Math.pow(ctemp,2)*a;
-         console.debug("cd: " +cd);
-         if(cd==0) {
+         // we know p = b/a, and ctemp = sqrt( (p/2)² -q ), so ctemp = sqrt( (b/2a)² - q) which leads us to a formula for q = b²/4a - ctemp²*a
+         q = Math.pow(b,2)/(4*a) - Math.pow(ctemp,2)*a;
+         console.debug("q: " +q);
+         // q must not be null otherwise there is only one solution of the equation
+         if(q==0) {
             console.error("ALERT (#"+counter+"): c-d=0! at a:"+a+" b:"+b+" ctemp:"+ctemp)
+            // use the next best option for b: if the ramdom number from above would have been the next higher number...
             b = ((b/(2*a))+1)*2*a;
-            cd = Math.pow(b,2)/(4*a) - Math.pow(ctemp,2)*a;
-            console.warn("updated cd: " +cd + " at a:"+a+" b:"+b+" ctemp:"+ctemp);
+            // we need to calc q again with the new b
+            q = Math.pow(b,2)/(4*a) - Math.pow(ctemp,2)*a;
+            console.warn("updated q: " +q + " at a:"+a+" b:"+b+" ctemp:"+ctemp);
          }
 
-         d = cd + getRandomInt(1,10);
+         // the pq-Formula works for x²+px+q=0. We do have q already. To make the equation a bit more tricky we adding a number <>0 to the right side: d, a random number
+         d = q + getRandomInt(1,10);
          console.debug("d: " +d);
-
-         c = cd + d;
+         // we need to add that ramdom number d to both sides of the equation, of course
+         c = q + d;
          console.debug("c updated: " +c);
 
+         // now we know the soltions already
          x1 = -b/(2*a) - ctemp;
          x2 = -b/(2*a) + ctemp;
 
-
+         // now build the string version of this equation. Of course in a nice format...
+         // do not display "1x²" but "x²" instead
          if(a==1) {
             eq = "x² ";
          } else {
             eq = a + "x² ";
          }
+         // do not display "+ -2x" but "-2x", od "+0x" but nothing instead
          switch (Math.sign(b)) {
             case -1: eq = eq + b+"x "; break;
             case  1: eq = eq + "+"+b+"x "; break;
             case  0: eq = eq + " "; break;
          }
+         // do not display "+ -2" but "-2", od "+0" but nothing instead
          switch (Math.sign(c)) {
             case -1: eq = eq + c + " = " +d; break;
             case  1: eq = eq + "+"+c + " = " +d; break;
             case  0: eq = eq + "= " +d; break;
          }
+
+         //psst don't tell anyone the solutions ;-)
          console.debug(eq + " ==> x1=" + x1 + "  x2="+x2)
 
+         //put the equation in the HTML field and reset soltion HTML fields (no content, no background color)
          document.getElementById('equation').value = eq;
          document.getElementById('result1').style.backgroundColor = "#fff";
          document.getElementById('result1').value = "";
