@@ -57,7 +57,7 @@
          // we know p = b/a, and ctemp = sqrt( (p/2)² -q ), so ctemp = sqrt( (b/2a)² - q) which leads us to a formula for q = b²/4a - ctemp²*a
          q = Math.pow(b,2)/(4*a) - Math.pow(ctemp,2)*a;
          console.debug("q: " +q);
-         // q must not be null otherwise there is only one solution of the equation
+         // q must not be null otherwise there is only one solution of the equation... :-/
          if(q==0) {
             console.error("ALERT (#"+counter+"): c-d=0! at a:"+a+" b:"+b+" ctemp:"+ctemp)
             // use the next best option for b: if the ramdom number from above would have been the next higher number...
